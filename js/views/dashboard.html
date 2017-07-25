@@ -1,0 +1,77 @@
+<div class="oj-flex demo-panel-wrapper">
+    <div class="oj-flex-item oj-flex oj-sm-flex-items-1">
+        <div class="oj-flex-item oj-panel demo-mypanel">
+            <div id="container1" style="padding: 10px; max-width:600px">  
+                <table id="table"
+                       data-bind="ojComponent:{component:'ojTable',                           
+                                           data: datasource,                           
+                                           columns: 
+                                               [{headerText: 'Department Id', field: 'DepartmentId', id: 'column1'},
+                                               {headerText: 'Department Name', field: 'DepartmentName', id: 'column2'},
+                                               {headerText: 'Location Id', field: 'LocationId', id: 'column3'},
+                                               {headerText: 'Manager Id', field: 'ManagerId', id: 'column4'}],
+                                           selectionMode: {row: 'single', column:'none'},
+                                           rootAttributes: {'style':'width: 100%;'}}">
+                </table>
+
+            </div> 
+        </div>
+    </div>
+    <div class="oj-flex-item oj-flex oj-sm-flex-items-1">
+        <div class="oj-flex-item oj-panel">
+            <div id="container1" style="padding: 10px; max-width:500px">    
+
+                <label for="deptId">Dept Id</label>
+                <input id="deptId"
+                       data-bind="ojComponent: {
+                               component: 'ojInputText', 
+                               deptId}"/> 
+                <label for="deptName">Dept Name</label>
+                <input id="deptName"
+                       data-bind="ojComponent: {
+                               component: 'ojInputText', 
+                               value:deptName}"/>
+                <label for="locationId">Location Id</label>
+                <input id="locationId"
+                       data-bind="ojComponent: {
+                               component: 'ojInputText', 
+                               value:locationId}"/>
+                <label for="managerId">Manager Id</label>
+
+                <input id="managerId"
+                       data-bind="ojComponent: {
+                               component: 'ojInputText', 
+                               value:managerId}"/>
+
+
+
+            </div>
+            <div id='buttons-container'>
+                <button id= "button"
+                        data-bind="click: Create, 
+                       ojComponent: { component: 'ojButton', label: 'Create' }">
+                </button>
+                <button id= "Delete"
+                        data-bind="click: Delete, 
+                       ojComponent: { component: 'ojButton', label: 'Delete' }">
+                </button>
+                <button id= "Update"
+                        data-bind="click: Update, 
+                       ojComponent: { component: 'ojButton', label: 'Update' }">
+                </button>
+                <button id= "button"
+                        data-bind="click: resetFields, 
+                       ojComponent: { component: 'ojButton', label: 'Reset' }">
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

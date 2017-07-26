@@ -5,7 +5,7 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojcollectiontabledatasource', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojbutton'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojbutton'],
         function (oj, ko, $) {
 
             function DashboardViewModel() {
@@ -16,9 +16,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/o
                 self.locationId = ko.observable();
                 self.managerId = ko.observable();
 
-                self.serviceURL = 'http://localhost:3000/depts';
+                self.serviceURL = 'http://localhost:7101/MyADFRestAppV1Rest/rest/1/deptu';
                 self.DeptCol = ko.observable();
                 self.datasource = ko.observable();
+                self.pagingDatasource = ko.observable();
 
                 self.parseDept = function (response) {
                     return {DepartmentId: response['DepartmentId'],
@@ -34,24 +35,38 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/o
 
                 self.myDept = new self.Department();
                 self.DeptCollection = oj.Collection.extend({
-                    url: self.serviceURL,
+                    url:  self.serviceURL + "?limit=50",
                     model: self.myDept,
                     comparator: "DepartmentId"
                 });
 
                 self.DeptCol(new self.DeptCollection());
-                self.datasource(new oj.CollectionTableDataSource(self.DeptCol()));
+              //  self.datasource(new oj.CollectionTableDataSource(self.DeptCol()));
+               self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.DeptCol())));
 
-
+                self.buttonClick = function (model, event) {
+                   
+                    var recordAttrs = {DepartmentId: model.deptId(), DepartmentName: model.deptName(), LocationId: model.locationId(), ManagerId: model.managerId()};
+                    this.DeptCol().create(recordAttrs, {wait: true,
+                         contentType: 'application/vnd.oracle.adf.resourceitem+json',
+                        success: function (model, response) {
+                            
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log('Error in Create: ' + textStatus);
+                        }
+                    });
+                };
                 //create function 
 
-                self.create = function ()
-                {
-                    self.collection.create(self.buildModel(), {
-                        wait: true,
-                        contentType: 'application/vnd.oracle.adf.resourceitem+json',
-                        success: function (response) {
-                            self.collection.refresh();
+                // Create handler
+                self.Create = function (model, event) {
+                    console.log("Hello");
+                    alert("Hello");
+                    var recordAttrs = {DepartmentId: model.deptId(), DepartmentName: model.deptName(), LocationId: model.locationId(), ManagerId: model.managerId()};
+                    this.DeptCol().create(recordAttrs, {wait: true,
+                        contentType: 'application/vnd.oracle.adf.resource+json',
+                        success: function (model, response) {
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log('Error in Create: ' + textStatus);
@@ -98,7 +113,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/o
                             console.log('Update');
 
 
-                        }
+                        };
 
                 // Below are a subset of the ViewModel methods invoked by the ojModule binding
                 // Please reference the ojModule jsDoc for additionaly available methods.

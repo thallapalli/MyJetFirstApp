@@ -5,7 +5,7 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojbutton'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojbutton','ojs/ojtabs'],
         function (oj, ko, $) {
 
             function DashboardViewModel() {
@@ -65,7 +65,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/o
                     alert("Hello");
                     var recordAttrs = {DepartmentId: model.deptId(), DepartmentName: model.deptName(), LocationId: model.locationId(), ManagerId: model.managerId()};
                     this.DeptCol().create(recordAttrs, {wait: true,
-                        contentType: 'application/vnd.oracle.adf.resource+json',
+                        contentType: 'application/vnd.oracle.adf.resourceitem+json',
                         success: function (model, response) {
                         },
                         error: function (jqXHR, textStatus, errorThrown) {

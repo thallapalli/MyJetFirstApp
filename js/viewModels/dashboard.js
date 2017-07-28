@@ -5,66 +5,47 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojbutton','ojs/ojtabs'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/ojpagingcontrol', 'ojs/ojcollectiontabledatasource', 'ojs/ojpagingtabledatasource', 'ojs/ojinputtext', 'ojs/ojinputnumber', 'ojs/ojbutton', 'ojs/ojtabs', 'ojs/ojtree', 'ojs/ojjsontreedatasource'],
         function (oj, ko, $) {
 
             function DashboardViewModel() {
                 var self = this;
                 console.log('test');
-                self.deptId = ko.observable();
-                self.deptName = ko.observable();
-                self.locationId = ko.observable();
-                self.managerId = ko.observable();
+                self.Id = ko.observable();
+                self.FirstName = ko.observable();
+                self.LastName = ko.observable();
 
-                self.serviceURL = 'http://localhost:7101/MyADFRestAppV1Rest/rest/1/deptu';
-                self.DeptCol = ko.observable();
+
+                self.serviceURL = 'http://localhost:7101/MyRest6/rest/1/student';
+                self.StudentCol = ko.observable();
                 self.datasource = ko.observable();
                 self.pagingDatasource = ko.observable();
 
-                self.parseDept = function (response) {
-                    return {DepartmentId: response['DepartmentId'],
-                        DepartmentName: response['DepartmentName'],
-                        LocationId: response['LocationId'],
-                        ManagerId: response['ManagerId']};
+                self.parseStudent = function (response) {
+                    return {Id: response['Id'],
+                        FirstName: response['FirstName'],
+                        LastName: response['LastName']};
                 };
-                self.Department = oj.Model.extend({
+                self.Student = oj.Model.extend({
                     urlRoot: self.serviceURL,
-                    parse: self.parseDept,
-                    idAttribute: 'DepartmentId'
+                    parse: self.parseStudent,
+                    idAttribute: 'Id'
                 });
 
-                self.myDept = new self.Department();
-                self.DeptCollection = oj.Collection.extend({
-                    url:  self.serviceURL + "?limit=50",
-                    model: self.myDept,
-                    comparator: "DepartmentId"
+                self.myStudent = new self.Student();
+                self.StudentCollection = oj.Collection.extend({
+                    url: self.serviceURL + "?limit=50",
+                    model: self.myStudent,
+                    comparator: "Id"
                 });
 
-                self.DeptCol(new self.DeptCollection());
-              //  self.datasource(new oj.CollectionTableDataSource(self.DeptCol()));
-               self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.DeptCol())));
-
-                self.buttonClick = function (model, event) {
-                   
-                    var recordAttrs = {DepartmentId: model.deptId(), DepartmentName: model.deptName(), LocationId: model.locationId(), ManagerId: model.managerId()};
-                    this.DeptCol().create(recordAttrs, {wait: true,
-                         contentType: 'application/vnd.oracle.adf.resourceitem+json',
-                        success: function (model, response) {
-                            
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            console.log('Error in Create: ' + textStatus);
-                        }
-                    });
-                };
-                //create function 
-
+                self.StudentCol(new self.StudentCollection());
+                //  self.datasource(new oj.CollectionTableDataSource(self.DeptCol()));
+                self.pagingDatasource(new oj.PagingTableDataSource(new oj.CollectionTableDataSource(self.StudentCol())));
                 // Create handler
                 self.Create = function (model, event) {
-                    console.log("Hello");
-                    alert("Hello");
-                    var recordAttrs = {DepartmentId: model.deptId(), DepartmentName: model.deptName(), LocationId: model.locationId(), ManagerId: model.managerId()};
-                    this.DeptCol().create(recordAttrs, {wait: true,
+                   var recordAttrs = {Id: model.Id(), FirstName: model.FirstName(), LastName: model.LastName()};
+                    this.StudentCol().create(recordAttrs, {wait: true,
                         contentType: 'application/vnd.oracle.adf.resourceitem+json',
                         success: function (model, response) {
                         },
@@ -75,30 +56,24 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/o
                 };
 
 
+
                 //end of create function
 
                 self.buildModel = function ()
                 {
                     return {
-                        'DepartmentId': self.deptId(),
-                        'DepartmentName': self.deptName(),
-                        'LocationId': self.locationId(),
-                        'ManagerId': self.managerId()
+                        'Id': self.Id(),
+                        'FirstName': self.FirstName(),
+                        'LastName': self.FastName()
                     };
                 },
                         self.resetFields = function ()
                         {
                             console.log('in reset');
-                            alert('sf');
-                            self.deptId('');
-                            self.deptName('');
-                            self.locationId('');
-                            self.managerId('');
-
-                        },
-                        self.Create = function ()
-                        {
-                            console.log('Create');
+                           
+                            self.Id('');
+                            self.FirstName('');
+                            self.LastName('');
 
 
                         },

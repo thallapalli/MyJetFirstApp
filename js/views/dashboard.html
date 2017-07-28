@@ -39,10 +39,9 @@
                data-bind="ojComponent:{component:'ojTable',                           
                                            data: pagingDatasource,                           
                                            columns: 
-                                               [{headerText: 'Department Id', field: 'DepartmentId', id: 'column1'},
-                                               {headerText: 'Department Name', field: 'DepartmentName', id: 'column2'},
-                                               {headerText: 'Location Id', field: 'LocationId', id: 'column3'},
-                                               {headerText: 'Manager Id', field: 'ManagerId', id: 'column4'}],
+                                               [{headerText: 'Id', field: 'Id', id: 'column1'},
+                                               {headerText: 'First Name', field: 'FirstName', id: 'column2'},
+                                               {headerText: 'Last Name', field: 'LastName', id: 'column3'}],
                                            selectionMode: {row: 'single', column:'none'},
                                            rootAttributes: {'style':'width: 100%;'}}">
         </table>
@@ -58,30 +57,27 @@
                 <h3>New Department</h3><hr/>
                 <div class="oj-flex">  
                     <div class="oj-flex-item">
-                        <label for="newDepartId" class="oj-label">Department Id</label>
+                        <label for="newDepartId" class="oj-label">Id</label>
                     </div>
                     <div class="oj-flex-item">
-                        <input id="deptId" value="555" class="oj-text-input" data-bind="value: deptId, ojComponent:{component:'ojInputNumber'}" />
+                        <input id="Id" value="555" class="oj-text-input" data-bind="value: Id, ojComponent:{component:'ojInputNumber'}" />
                     </div>
                 </div>
                 <div class="oj-flex">  
                     <div class="oj-flex-item">
-                        <label for="deptName" class="oj-label">Department Name</label>
+                        <label for="FirstName" class="oj-label">First Name</label>
                     </div>
                     <div class="oj-flex-item">
-                        <input id="deptName" maxlength='30' placeholder="enter dept name" data-bind="value: deptName, ojComponent:{component:'ojInputText'}"/>
-
-                    </div>
-                    <div class="oj-flex-item">
-                        <input id="locationId" maxlength='30' placeholder="enter location id" data-bind="value: locationId, ojComponent:{component:'ojInputText'}"/>
+                        <input id="FirstName" maxlength='30' placeholder="enter first name" data-bind="value: FirstName, ojComponent:{component:'ojInputText'}"/>
 
                     </div>
                     <div class="oj-flex-item">
-                        <input id="managerId" maxlength='30' placeholder="enter manager id" data-bind="value: managerId, ojComponent:{component:'ojInputText'}"/>
+                        <input id="LastName" maxlength='30' placeholder="enter last name" data-bind="value: LastName, ojComponent:{component:'ojInputText'}"/>
 
                     </div>
+                   
 
-                    <button  class="oj-button" data-bind="click: buttonClick, ojComponent:{component:'ojButton', label: 'Create'}"></button>
+                    <button  class="oj-button" data-bind="click: Create, ojComponent:{component:'ojButton', label: 'Create'}"></button>
                     <button id= "Delete"
                             data-bind="click: Delete, 
                        ojComponent: { component: 'ojButton', label: 'Delete' }">

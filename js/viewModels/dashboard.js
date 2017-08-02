@@ -14,8 +14,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/o
                 self.Id = ko.observable();
                 self.FirstName = ko.observable();
                 self.LastName = ko.observable();
-
-
                 self.serviceURL = 'http://localhost:7101/MyRest6/rest/1/student';
                 self.StudentCol = ko.observable();
                 self.datasource = ko.observable();
@@ -77,6 +75,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/o
 
 
                         },
+                                
+                        self.downloadTable=function(){
+                            alert('Hello');
+                             var table = $('#table').html();    
+                             window.open('data:application/vnd.ms-excel,' + encodeURI($('#table').html()));
+                        },
                         self.Delete = function ()
                         {
                             console.log('Create');
@@ -86,6 +90,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojtable', 'ojs/o
                         self.Update = function ()
                         {
                             console.log('Update');
+                            alert("inupdate")
+                            var recordAttrs = {Id: model.Id(), FirstName: model.FirstName(), LastName: model.LastName()};
+                    this.StudentCol().save(recordAttrs, {wait: true,
+                        contentType: 'application/vnd.oracle.adf.resourceitem+json',
+                        success: function (model, response) {
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log('Error in Update: ' + textStatus);
+                        }
+                    });
 
 
                         };

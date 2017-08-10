@@ -5,3 +5,7 @@
     Description:
         This is where any of your application specific styles should be included
 */
+
+.demo-panelwrapper > .oj-flex-item {
+    padding: 0 5px 10px 5px;
+  }

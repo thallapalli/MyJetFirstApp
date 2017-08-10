@@ -5,18 +5,16 @@
  */
 
 /**
- * componentdemo module
+ * event-listener module
  */
 define(['ojs/ojcore', 'knockout'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
      */
-    function componentdemoContentViewModel() {
+    function eventlistenerContentViewModel() {
         var self = this;
-         
-        
     }
     
-    return componentdemoContentViewModel;
+    return eventlistenerContentViewModel;
 });

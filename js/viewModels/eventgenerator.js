@@ -5,18 +5,16 @@
  */
 
 /**
- * componentdemo module
+ * event-generator module
  */
 define(['ojs/ojcore', 'knockout'
 ], function (oj, ko) {
     /**
      * The view model for the main content view template
      */
-    function componentdemoContentViewModel() {
+    function eventgeneratorContentViewModel() {
         var self = this;
-         
-        
     }
     
-    return componentdemoContentViewModel;
+    return eventgeneratorContentViewModel;
 });

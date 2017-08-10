@@ -60,7 +60,9 @@ require(['ojs/ojcore', 'knockout', 'appController', 'ojs/ojknockout',
       function init() {
         oj.Router.sync().then(
           function () {
+            
             // Bind your ViewModel for the content of the whole page body.
+            
             ko.applyBindings(app, document.getElementById('globalBody'));
           },
           function (error) {
